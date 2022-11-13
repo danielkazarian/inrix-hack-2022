@@ -36,7 +36,7 @@ const DefaultMap = () => {
                     ...viewPort,
                     latitude: currentLocation.latitude,
                     longitude: currentLocation.longitude,
-                    zoom: 14,
+                    zoom: 12,
                 });
 
                 console.log("current latitude: ", currentLocation.latitude)
@@ -85,6 +85,8 @@ const DefaultMap = () => {
                 <Map
                     ref={mapRef}
                     initialViewState={viewPort}
+                    {...viewPort}
+                    onMove={evt => setViewport(evt.viewState)}
                     mapStyle="mapbox://styles/mapbox/streets-v11"
                     mapboxAccessToken={MAPBOX_TOKEN}
                 >
