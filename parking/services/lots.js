@@ -32,11 +32,11 @@ const getLots = async (latitude, longitude, radius, accessToken) => {
                 lotsData.push({
                     name: data['result'][i]['name'],
                         data: {
-                            probability: data['result'][i]['occupancy']['probability'],
+                            occupancy: data['result'][i]['occupancy'],
                             hours: data['result'][i]['hrs'],
                             hourlyRate: data['result'][i]['rateCard'][0],
                             paymentMethods: data['result'][i]['pmtTypes'], 
-                            buildingAddress: data['result'][i]['buildingAddress'],
+                            navigationAddress: data['result'][i]['navigationAddress'],
                             coordinates: {
                                 longitude: data['result'][i]['point']['coordinates'][0],
                                 latitude: data['result'][i]['point']['coordinates'][1],
@@ -64,7 +64,7 @@ const getLots = async (latitude, longitude, radius, accessToken) => {
                         hours: data['result'][i]['hrs'],
                         hourlyRate: data['result'][i]['rateCard'][0],
                         paymentMethods: data['result'][i]['pmtTypes'], 
-                        buildingAddress: data['result'][i]['buildingAddress'],
+                        navigationAddress: data['result'][i]['navigationAddress'],
                         coordinates: {
                             longitude: data['result'][i]['point']['coordinates'][0],
                             latitude: data['result'][i]['point']['coordinates'][1],

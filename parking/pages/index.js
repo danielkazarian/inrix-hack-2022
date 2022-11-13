@@ -15,14 +15,14 @@ export default function Home() {
     <>
     <SearchContextProvider>
         <div className='flex flex-row h-screen w-screen'>
-            <div className='flex flex-col w-1/3'>
+          <div className='w-2/3'>
+              <DefaultMap/>
+            </div>
+            <div className='flex flex-col w-1/3 bg-[#A9CEF4]'>
               <div className='flex justify-center mt-[2rem]'>
                 <Search/>
               </div>
               <LocationCards/>
-            </div>
-            <div className='w-2/3'>
-              <DefaultMap/>
             </div>
         </div>
       </SearchContextProvider>
