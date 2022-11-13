@@ -29,21 +29,12 @@ const Search = () => {
                         <Image   
                             src={`/images/search.png`} 
                             layout='fill'
+                            alt='search'
                         />
                     </button>
                 </div>
                 
             </div>
-       
-            {/* <button 
-                className='relative w-[32px] h-[32px] justify-self-start ml-[-10px]' 
-                onClick={saveSearch}
-            >
-                <Image   
-                    src={`/images/search.png`} 
-                    layout='fill'
-                />
-            </button> */}
         </form>
     )
 }
