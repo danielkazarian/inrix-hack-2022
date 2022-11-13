@@ -2,31 +2,32 @@ import fetch from 'node-fetch'
 
 const APP_ID = '9cu0cs0fli'
 const HASH_TOK = 'OWN1MGNzMGZsaXxCUW5RVkJlWkRqMUR1ZkNXUVZEcjUxUzZTMkxkV2tGYzM4Z01aemRn'
-let url = `https://api.iq.inrix.com/auth/v1/appToken?appId=${appId}&hashToken=${hashToken}`;
- 
- 
-// app.get(port, function () {
-//    console.log("Server has been started at " + port);
- 
-//    fetch( url, {
-//        method: "GET"
-//    })
-//    .then((res) => res.json())
-//    .then(function(data) {
-//        console.log(data);
-//    })
-// });
+let url = `https://api.iq.inrix.com/auth/v1/appToken?appId=${APP_ID}&hashToken=${HASH_TOK}`;
+
+// // let tempBearerToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBJZCI6IjU5cXNvcjl2dWIiLCJ0b2tlbiI6eyJpdiI6ImY2YjRlYTMzNzZjNjllNjFlZjRlOGJjY2Y3MmI5NzFkIiwiY29udGVudCI6ImZhZWMxZWFlMDFmZTBiZGM4OWMzN2FmZWUyNDU3YmI0ZDBkMmQ1YTZmYzQ5NDZlNzYyOThmYjYxMzQ5MzIyNmI0NzkwZWFiZjg4ODA3NWEwYTgzMjIzYjgwMDg3ODljN2E4NGFlNTM2NTFhYzI3ODcxZmNhZWM5YmIwOGZlNDE0NjQ2MzRjYTlkY2EwMzU1M2U5N2QzYWJkYWNkYjE5ZmM0MGQ4MTI2MjIzMDEyZWU0M2FmNTllYzA2ZjdhZjczYmJhZGM1ZDQ1Y2Y2MWRkNTM1NWU2OGE5NWZmZDg5MGFkODU3ZjZhM2U4YjY1NTVhMWZmM2E2MmYzNWJhNWIzMTE0MGUwNjc5NzQ3MzEyYjUwOGYxY2RiMjBmNmQ0NjRlOWE0ODA3MmVhMjQyMjlhNzAxODc3ZDMxMjI1YjRlOTRiNWFmOWEwYTFlZTlhNGNmZGJmZDJjOGViZDZmYWEyMTA4NzMwMDBmOWQ3YTBhZTZhOGZmZmIwMTRhODMyZTJlMmNjMmUzMTJjYmRhYTcxOWU5NmJmM2I0NTAxNzAzNWUxMDUyMjk5MjcwMWI1YTg1ZThmOTQyNTViNTBjYjg1NzI3ZmY3Mjk2OTM5ZDkzOTY3YWVkMjIwN2MzODA3MjRjODg3MDgwNGI1YzJkYTYyMmUwODVhZWFlYjMxNGY0ZTU1ODBmN2Q3MDcyYmUyYjkzMzUwNmU1NDkwMGUwODljNTZlNzA5NDQ3YjhlOGMzOTQwMzY4NGFjYzgyMzRkZTAwMDcxYTRmY2FlOTI1NWNiODAxNDllNmIyODRlNjZkMjg2ZTczZTczY2JjYmQ3NWNjODM5NTg3YzQyNzZjNDg2OTY0ODg5Yjg0ZDlhODEwMDJkNWRjN2EzIn0sInNlY3VyaXR5VG9rZW4iOnsiaXYiOiJmNmI0ZWEzMzc2YzY5ZTYxZWY0ZThiY2NmNzJiOTcxZCIsImNvbnRlbnQiOiJhY2RjM2E4NTI2ZWY1ZWZjOTdlZDU2ODZkMjA5NzRmMmZhOTZjNjgwZDk3MTZlODY1NmI1ZmUwZDEwZDIzMzA2MjdhNmQxY2NkMGQyNmViMGE0MDMzMjg2In0sImp0aSI6IjFmZGY3Y2IxLTBlNzYtNGE4MS1hMDA5LWI0NTBkOGFmMWI0NSIsImlhdCI6MTY2ODMyNjA2MiwiZXhwIjoxNjY4MzI5NjYyfQ.C73wkYaxtF8H888JwJTYHmbE6Ila0qMiiEQZKspOE_8'
+//  let tempBearerToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBJZCI6IjljdTBjczBmbGkiLCJ0b2tlbiI6eyJpdiI6IjhiNjFiMGI4N2NlMTg3MjI1MGY5ODU1OWExZmJhMGQzIiwiY29udGVudCI6ImNhNDA2ZmY0ZjgyMTM1OGE4MjNmNDViMjYxODRlODBkYjY0NzM3ZmNlNWI1NDZlOWE2NjljYjk1MDYwYTQ1MjY0MjRjYWVlN2RiMWEyNTJmMjA1MjE5MjFkMWNjNTI1NGYyYjAxN2MwMGViZTU0M2RkNDA4YzUzNDgzMjRmZTExNmZjNzQ2NGNhNDJiYjE5Y2RjZjJkZGZlZmQzZTFhZTRlN2MxZDRmZjQyMzExYzhkYjJjNWNhZTNkMDgzZmUyNWQ2NjBmMGI3NWU2Mzc4YTE1N2VmZTg2MTYxYzU2MzhiMzk2NzRhMTE0YmRkYzBiMzMwMzIzMDc1ODVlZmFlNDg1NzMxZjEyOGU4OTdhNGQ1Mjg1OTRhMmQ2ZWE1MWYyZjNjYjc5Njg5MWVmNjg2MTAwMmRjOGIyYTg3YzYwNDM0YTJhNWVlZmFkZjgyYjcxZmYyOGRmZTIxZDkzMjI4NjY3MjU0NTkwMjAxOWU5OTIwMDAyYTY3MzBjZWY3MzdhNjFmNzEzYzM0ZGE4YzJmYmRlMmIyNjI3NjZmMDU3MTk5YzcwNDc4ZDY3N2ZhZmJkMDM4MTJkZjg2MDFlZWQxMWU3MGZhNGQ2MTdlOWY4NWU3NTMyYzI4NDUzZGY4Y2ZhNDkyOGUxYTIwOTY2MjYxMzA5MzA1ZTIxNWVhYjNmNTNhNWIxZDA4MzkzNWYzNWE0NDFhOGU5NzcyYWFlM2YzNTlhM2ZmODliYzBkODgwOWY5ZmY5Mjg2ODZiMTc3ZWM3YWRjMmYzNzdmNThlMzU2Mzk5OGQxZTcxMTJhNmMxNWFkYWFiOGI2NjAzM2UwNTFhOGU0ZDAyNGU5NGFlNjAxZmZhY2Y4ZWFhYjkzMzViNjhjNTI2M2U3In0sInNlY3VyaXR5VG9rZW4iOnsiaXYiOiI4YjYxYjBiODdjZTE4NzIyNTBmOTg1NTlhMWZiYTBkMyIsImNvbnRlbnQiOiJjMzQ4NmNkZWFlMzMzNTk5Yjk3YjNkOTI1M2FkZWY2NGIwNzgxNmNhZGFhMTRkZWQ4ODAwZWZmNTE4MGYwNzE5NzA0N2JjYmQ5ODFiMDk1MjdkNDkyMjFmIn0sImp0aSI6IjcyZTMyMTAxLTUwNDgtNGZiNS04YzkxLWE5MDJmZWNhMzBiMSIsImlhdCI6MTY2ODMzNzY0MiwiZXhwIjoxNjY4MzQxMjQyfQ.WMGABxHetYy95IIPTlzPbUmtDQariMpyHp6RrpPaTlc'
+let tempBearerToken = ''
 
 const getBearerToken = async () => {
     const requestOptions = {
-        method: GET,
+        method: 'GET',
     }
 
     const response = await fetch(url, requestOptions)
-    const data = response.json()
+    const data = await response.json()
     const bearerToken = data.result.token
 
-    console.log(bearerToken)
+    // console.log(bearerToken)
 
     return bearerToken
 }
+
+const setBearerToken = async () => {
+    const bearerToken = await getBearerToken()
+
+    tempBearerToken = bearerToken;
+}
+
+setBearerToken()
+
+export { getBearerToken, tempBearerToken }
