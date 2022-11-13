@@ -18,9 +18,40 @@ export default function Home() {
   const login = async () => {
     const result = await signInWithPopup(auth, googleAuth);
   };
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+
+  let header = null
+
+  // useEffect(() => {
+  //   console.log(user);
+
+  //   if (user != null){
+  //     header =
+  //     <div className="w-[6rem] h-[3rem] text-xl bg-[#EDF5FD] rounded-xl">
+  //       {'Welcome' + user.displayName}
+  //       <img className= "p-0 h-20 w-20" src={user ? user.photoURL : ""} />
+  //     </div>
+  //   } else {
+  //     header =   
+  //     <button className = "w-[6rem] h-[3rem] text-xl bg-[#EDF5FD] rounded-xl hover:bg-[#7EA0B7]" onClick={login}>
+  //       Sign In
+  //     </button>
+  //   }
+  // }, [user]);
+
+  if (user != null){
+    header =
+    <div className="flex flex-row w-[16rem] h-[5rem] text-xl bg-[#EDF5FD] rounded-xl text-center">
+      {'Welcome '}
+      {user.displayName}
+      <img className= "p-0 h-20 w-20" src={user ? user.photoURL : ""} />
+    </div>
+  } else {
+    header =   
+    <button className = "w-[6rem] h-[3rem] text-xl bg-[#EDF5FD] rounded-xl hover:bg-[#7EA0B7]" onClick={login}>
+      Sign In
+    </button>
+  }
+
   return (
     <>
       <SearchContextProvider>
@@ -30,12 +61,12 @@ export default function Home() {
           </div>
           <div className="flex flex-col w-1/3 bg-[#A9CEF4]">
             <div className="flex items-center justify-center gap-5 mt-5">
-              <button className = "text-xl" onClick={login}>
+              {header}
+              {/* <button className = "w-[6rem] h-[3rem] text-xl bg-[#EDF5FD] rounded-xl hover:bg-[#7EA0B7]" onClick={login}>
                 {!user ? "Sign In" : "Welcome, " + user.displayName}
-              </button>
-              <img className= "p-0 h-20 w-20" src={user ? user.photoURL : ""} />
+              </button> */}
             </div>
-            <div className="flex justify-center mt-[2rem]">
+            <div className="flex justify-center mt-[2.5rem]">
               <Search />
             </div>
             <LocationCards />

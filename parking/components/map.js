@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef, useContext} from 'react'
-import Map, {Marker} from "react-map-gl"
+import Map, {Marker, Popup} from "react-map-gl"
 
 import { SearchContext } from '../context/search-context'
 import Image from 'next/image'
@@ -39,14 +39,14 @@ const DefaultMap = () => {
                     zoom: 12,
                 });
 
-                console.log("current latitude: ", currentLocation.latitude)
-                console.log("current longitude: ", currentLocation.longitude)
+                // console.log("current latitude: ", currentLocation.latitude)
+                // console.log("current longitude: ", currentLocation.longitude)
 
                 try {
                     const newLots = await getLots(currentLocation.latitude, currentLocation.longitude, 1, tempBearerToken)
                     setCurrentLots(newLots)
                     changeLots(newLots)
-                    console.log("newLots: ", lots)
+                    // console.log("newLots: ", lots)
                 } catch (error) {
 
                 }
@@ -71,13 +71,20 @@ const DefaultMap = () => {
                 console.log("current latitude search : ", currentLocation.latitude)
                 console.log("current longitude search: ", currentLocation.longitude)
                 
-                // const newLots = await getLots(currentLocation.latitude, currentLocation.longitude, 1, tempBearerToken)
-                // setLots(newLots)
             }
         }
 
         changeCurrentLocation()
     }, [location])
+
+    const selectLot = (event) => {
+        setViewport({
+            ...viewPort,
+            latitude: event.lngLat.lat,
+            longitude: event.lngLat.lng,
+            zoom: 40,
+        });
+    }
 
     if (viewPort){
         return (
@@ -87,6 +94,7 @@ const DefaultMap = () => {
                     initialViewState={viewPort}
                     {...viewPort}
                     onMove={evt => setViewport(evt.viewState)}
+                    onDblClick={selectLot}
                     mapStyle="mapbox://styles/mapbox/streets-v11"
                     mapboxAccessToken={MAPBOX_TOKEN}
                 >
@@ -106,6 +114,23 @@ const DefaultMap = () => {
                                 longitude={lot.data.coordinates.longitude}
                                 anchor="bottom"
                             />
+                        )
+                        )
+                        
+                    )}
+
+                    {currentLots.length > 1 && (
+                        currentLots.map((lot, index) => (
+                            <Popup 
+                                key={index}
+                                latitude={lot.data.coordinates.latitude}
+                                longitude={lot.data.coordinates.longitude}
+                                closeButton={true}
+                                closeOnClick={false}
+                                anchor='left'
+                            >
+                                <div>{lot.name}</div>
+                            </Popup>
                         )
                         )
                         
