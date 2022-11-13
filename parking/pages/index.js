@@ -6,24 +6,24 @@ import React, {useRef} from "react";
 
 import DefaultMap from '../components/map'
 import Search from '../components/search'
-
-
+import {SearchContextProvider} from '../context/search-context'
 
 export default function Home() {
-  const geocoderContainerRef = useRef()
 
   return (
     <>
-      <div className='flex flex-row h-screen w-screen'>
-          <div className='flex flex-col w-1/3 border-2 border-black'>
-            <div className='flex justify-center mt-[2rem]'>
-              <Search geocoderContainerRef={geocoderContainerRef}></Search>
+    <SearchContextProvider>
+        <div className='flex flex-row h-screen w-screen'>
+            <div className='flex flex-col w-1/3 border-2 border-black'>
+              <div className='flex justify-center mt-[2rem]'>
+                <Search></Search>
+              </div>
             </div>
-          </div>
-          <div className='w-2/3'>
-            <DefaultMap geocoderContainerRef={geocoderContainerRef}></DefaultMap>
-          </div>
-      </div>
+            <div className='w-2/3'>
+              <DefaultMap></DefaultMap>
+            </div>
+        </div>
+      </SearchContextProvider>
     </>
 
   )
