@@ -6,6 +6,7 @@ import React, {useRef} from "react";
 
 import DefaultMap from '../components/map'
 import Search from '../components/search'
+import LocationCards from '../components/LocationCards';
 import {SearchContextProvider} from '../context/search-context'
 
 export default function Home() {
@@ -14,13 +15,14 @@ export default function Home() {
     <>
     <SearchContextProvider>
         <div className='flex flex-row h-screen w-screen'>
-            <div className='flex flex-col w-1/3 border-2 border-black'>
+            <div className='flex flex-col w-1/3'>
               <div className='flex justify-center mt-[2rem]'>
-                <Search></Search>
+                <Search/>
               </div>
+              <LocationCards/>
             </div>
             <div className='w-2/3'>
-              <DefaultMap></DefaultMap>
+              <DefaultMap/>
             </div>
         </div>
       </SearchContextProvider>

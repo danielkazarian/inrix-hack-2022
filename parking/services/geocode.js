@@ -14,10 +14,10 @@ const locationToCoordinates = async (location) => {
 
     const response = await fetch(url, requestOptions)
     const data = await response.json()
-    console.log(data['features'])
+    console.log("data['features']: ", data.features)
 
-    const locations = data['features']
-    return locations
+    const locations = data.features
+    return data
 }
 
 export {locationToCoordinates}
