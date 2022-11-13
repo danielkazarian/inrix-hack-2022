@@ -23,4 +23,4 @@ function geoCode(location) {
     });
 }
 
-module.exports = { geoCode };
+export { geoCode };
