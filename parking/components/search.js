@@ -23,7 +23,7 @@ const Search = () => {
                 <input className='focus:outline-none bg-transparent ml-[0.5rem]' placeholder="address" value={search} onChange={changeSearch}></input>
                 <div className='flex justify-end w-full'>
                     <button 
-                        className='flex relative justify-end w-[40px] h-[32px] mt-[0.3rem] mr-[0.5rem]' 
+                        className='flex relative justify-end w-[40px] h-[26px] mt-[0.5rem] mr-[0.5rem]' 
                         onClick={saveSearch}
                     >
                         <Image   
