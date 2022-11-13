@@ -1,30 +1,46 @@
-import React, {useState, useEffect} from 'react'
-import Map, {Marker} from "react-map-gl";
+import React, {useState, useEffect, useRef, useContext} from 'react'
+import Map, {Marker} from "react-map-gl"
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoianVzdGluYzAyNTEiLCJhIjoiY2xhZWhuazVnMHM1dTNxdDR1d2p3aTh2NCJ9.17wKp6l8w4apQmD-R7q1rg'
 
 const DefaultMap = () => {
     const [viewPort, setViewport] = useState()
 
+    const [currentLocation, setCurrentLocation] = useState()
+
+    const mapRef = useRef()
+
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((pos) => {
-          setViewport({
-            ...viewPort,
+          setCurrentLocation({
+            ...currentLocation,
             latitude: pos.coords.latitude,
             longitude: pos.coords.longitude,
-            zoom: 9,
-          });
-          console.log(pos.coords.latitude)
-          console.log(pos.coords.longitude)
+          })
         });
       }, []);
+
+      useEffect(() => {
+        if (currentLocation){
+            setViewport({
+                ...viewPort,
+                latitude: currentLocation.latitude,
+                longitude: currentLocation.longitude,
+                zoom: 9,
+            });
+
+            console.log("current latitude: ", currentLocation.latitude)
+            console.log("current longitude: ", currentLocation.longitude)
+        }
+      }, [currentLocation])
 
       if (viewPort){
         return (
             <Map
-                mapboxAccessToken={MAPBOX_TOKEN}
+                ref={mapRef}
                 initialViewState={viewPort}
                 mapStyle="mapbox://styles/mapbox/streets-v11"
+                mapboxAccessToken={MAPBOX_TOKEN}
               >
                 <Marker
                   longitude={viewPort.longitude}
@@ -42,17 +58,3 @@ const DefaultMap = () => {
 }
 
 export default DefaultMap
-
-// return (
-//     // <Map
-//     //   initialViewState={{
-//     //     longitude: -122.4,
-//     //     latitude: 37.8,
-//     //     zoom: 14
-//     //   }}
-//     //   style={{width: 600, height: 400}}
-//     //   mapStyle="mapbox://styles/mapbox/streets-v9"
-//     //   mapboxAccessToken={MY_ACCESS_TOKEN}
-//     // />
-//     <></>
-//   );
